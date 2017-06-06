@@ -46,6 +46,7 @@ import java.util.Optional;
 @Plugin(
         id = "sayitem",
         name = "SayItem",
+        version = "1.0.0",
         authors = {
                 "Zerthick"
         }
