@@ -65,16 +65,25 @@ public class SayItem {
                 .permission("sayitem.command.say")
                 .arguments(GenericArguments.remainingJoinedStrings(Text.of("Message")))
                 .executor((src, args) -> {
+
+                    // Src must be a player to hold an item
                     if (src instanceof Player) {
                         Player player = (Player) src;
 
                         Optional<ItemStack> itemStackOptional = player.getItemInHand(HandTypes.MAIN_HAND);
 
+                        // If the player is holding an item in their hand
                         if (itemStackOptional.isPresent()) {
                             args.getOne(Text.of("Message")).ifPresent(message -> {
                                 String msgString = message.toString();
+
+                                // Count the number of item placeholders present
                                 int matches = StringUtils.countMatches(msgString, "[item]");
+
+                                // If placeholders a present
                                 if (matches != 0) {
+
+                                    // Split the message around the placeholders insert the appropriate number of item reps
                                     String[] splitMessage = msgString.split("\\[item]");
                                     Text.Builder finalMsgBuilder = Text.builder();
                                     for (int i = 0; i < splitMessage.length; i++) {
@@ -84,6 +93,14 @@ public class SayItem {
                                             matches--;
                                         }
                                     }
+
+                                    // Insert any left over placeholders
+                                    while (matches > 0) {
+                                        finalMsgBuilder.append(buildItemName(itemStackOptional.get()));
+                                        matches--;
+                                    }
+
+                                    // Simulate the chat message
                                     player.simulateChat(finalMsgBuilder.build(), Cause.of(NamedCause.source(instance)));
                                 } else {
                                     src.sendMessage(Text.of(TextColors.RED, "You must include the [item] placeholder in your message!"));
