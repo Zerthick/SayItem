@@ -1,6 +1,6 @@
 # SayItem
 
-A Simple Minecraft Plugin to Display an item in chat!  Any player with the `sayitem.chat` permission will automatically have their chat messages scanned and replaced. To display an item simply hold the item in your main hand and include `[item]` in your chat message. The placeholder will be replace with the name of the item and on hover will display the tooltip for it.  The name color and formatting are taken directly from the item, so items with custom names and colors will display just fine! 
+A Simple Minecraft Plugin to Display an item in chat!  Any player with the `sayitem.chat` permission will automatically have their chat messages scanned and replaced. To display an item simply hold the item in your main hand and include `[item]` in your chat message. The placeholder will be replaced with the name of the item and on hover will display the tooltip for it.  The name, color, and formatting are taken directly from the item, so items with custom names and colors will display just fine! 
 
 In addition, **SayItem v1.1.0** added the concept of an _Indexed Placeholder_, `[item]` will still reference the item currently in the player's main hand, however `[item1]` will reference the item in the first slot of the player's hotbar (if present), `[item2]` will reference the second slot. In this way, you can reference multiple items in the same message!
 
