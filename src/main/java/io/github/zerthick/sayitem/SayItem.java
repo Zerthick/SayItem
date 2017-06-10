@@ -61,7 +61,8 @@ import java.util.stream.Collectors;
 @Plugin(
         id = "sayitem",
         name = "SayItem",
-        version = "1.0.0",
+        version = "1.1.0",
+        description = "Display an Item in Chat!",
         authors = {
                 "Zerthick"
         }
@@ -73,7 +74,6 @@ public class SayItem {
     @Inject
     private PluginContainer instance;
 
-    private Pattern placeholderPattern = Pattern.compile("\\[(item(?<Index>[0-9]+)?)]");
     private Pattern jsonPlaceholderPattern = Pattern.compile("\\[(?<Json>\\{.*?})]");
 
     @Listener
