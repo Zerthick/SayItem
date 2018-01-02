@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017  Zerthick
+ * Copyright (C) 2018  Zerthick
  *
  * This file is part of SayItem.
  *
@@ -33,8 +33,6 @@ import org.spongepowered.api.data.manipulator.mutable.item.EnchantmentData;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.cause.Cause;
-import org.spongepowered.api.event.cause.NamedCause;
 import org.spongepowered.api.event.filter.cause.Root;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.message.MessageChannelEvent;
@@ -61,7 +59,6 @@ import java.util.stream.Collectors;
 @Plugin(
         id = "sayitem",
         name = "SayItem",
-        version = "1.1.0",
         description = "Display an Item in Chat!",
         authors = {
                 "Zerthick"
@@ -110,7 +107,9 @@ public class SayItem {
                                     Player player = (Player) src;
                                     placeholders.putAll(buildPlaceholders(player));
                                     finalMsg = processPlaceholders(Text.of(msg), placeholders);
-                                    player.simulateChat(finalMsg, Cause.of(NamedCause.source(instance)));
+                                    Sponge.getCauseStackManager().pushCause(instance);
+                                    player.simulateChat(finalMsg, Sponge.getCauseStackManager().getCurrentCause());
+                                    Sponge.getCauseStackManager().popCause();
                                 } else {
                                     finalMsg = processPlaceholders(Text.of(msg), placeholders);
                                     Sponge.getServer().getBroadcastChannel().send(finalMsg);
